@@ -16,6 +16,19 @@
       <direction>0.1 0.1 -1</direction>
       <cast_shadows>false</cast_shadows>
     </light>
+  <light name='user_point_light_0' type='point'>
+     <pose frame=''>6.12676 -7.06459 10 0 -0 0</pose>
+      <diffuse>0.5 0.5 0.5 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation>
+        <range>20</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+      <direction>0 0 -1</direction>
+    </light>
   <!--  <model name="fake_ground">
       <link name="fake_ground_link">
         <pose>0 0 -0.01 0 0 0</pose>
@@ -53,7 +66,23 @@
       <uri>model://IARC Floor</uri>
     </include>
 
+   <include>
+	<uri>model://red_line</uri>
+   </include> 
 
+   <include>
+	<uri>model://green_line</uri>
+   </include>
+
+   <include>
+	<pose> 9.96 0 -0.1 0 0 0 </pose>
+	<uri>model://white_line</uri>
+   </include>
+
+   <include>
+	<pose> -9.96 0 -0.1 0 0 0 </pose>
+	<uri>model://white_line</uri>
+   </include>
 <!--
     <model name="120m_landscape_smooth_tri">
       <link name="120m_landscape_smooth_tri_link">
