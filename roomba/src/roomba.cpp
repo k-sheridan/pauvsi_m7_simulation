@@ -146,8 +146,9 @@ int main(int argc, char **argv)
  	ros::NodeHandle n;
 
  	std::string modelName;
- 	n.param<std::string>("~model_name", modelName, "roomba1");
- 	n.getParam("~seed_value", seedVal);
+ 	ros::param::param<int>("~seed_value", seedVal, 0);
+ 	ros::param::param<std::string>("~model_name", modelName, "roomba1");
+ //	n.getParam("seed_value", seedVal);
  	ROS_DEBUG_STREAM("SeedValue: "<< seedVal);
  	//Seed for the random number generator
 	std::srand(seedVal);
@@ -220,9 +221,9 @@ int main(int argc, char **argv)
 
  	while (ros::ok())
  	{
-// 		if(n.searchParam("~model_name", modelName))
-// 			ROS_INFO_STREAM("PARAM");
- 		ROS_INFO_STREAM("MnAME:"<<modelName);
+ 		if(n.searchParam("~model_name", modelName))
+ 			ROS_INFO_STREAM("PARAM");
+// 		ROS_INFO_STREAM("MnAME:"<<modelName);
 		pos.header.stamp = ros::Time::now();
 
 		//update the coordinates in the model

@@ -112,18 +112,19 @@
 
       <sensor name="leftfront_cliff_sensor" type="ray">
         <pose>0.150000 0.040000 0.027000 0 1.570790 0</pose>
+	<visualize>true</visualize>
         <ray>
           <scan>
             <horizontal>
               <samples>1</samples>
               <resolution>1.000000</resolution>
-              <min_angle>0</min_angle>
-              <max_angle>0</max_angle>
+              <min_angle>-2.26889</min_angle>
+              <max_angle>2.26889</max_angle>
             </horizontal>
           </scan>
           <range>
             <min>0.010000</min>
-            <max>0.040000</max>
+            <max>0.50000</max>
             <resolution>0.100000</resolution>
           </range>
         </ray>
@@ -134,7 +135,7 @@
         <ray>
           <scan>
             <horizontal>
-              <samples>1</samples>
+              <samples>30</samples>
               <resolution>1.000000</resolution>
               <min_angle>0</min_angle>
               <max_angle>0</max_angle>
@@ -148,24 +149,35 @@
         </ray>
       </sensor>
 
+
       <sensor name="rightfront_cliff_sensor" type="ray">
-        <pose>0.150000 -0.040000 0.027000 0 1.570790 0</pose>
+        <pose>0.150000 -0.040000 0.027000 0 0 0</pose>
+	<visualize>true</visualize>
+	<update_rate>40</update_rate>
         <ray>
           <scan>
             <horizontal>
-              <samples>1</samples>
+              <samples>30</samples>
               <resolution>1.000000</resolution>
-              <min_angle>0</min_angle>
-              <max_angle>0</max_angle>
+              <min_angle>-2.26889</min_angle>
+              <max_angle>2.26889</max_angle>
             </horizontal>
           </scan>
           <range>
             <min>0.010000</min>
-            <max>0.040000</max>
+            <max>0.50000</max>
             <resolution>0.100000</resolution>
           </range>
         </ray>
+	<plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
+	  <alwaysOn>true</alwaysOn>
+	  <updateRate>30.0</updateRate>
+	  <topicName>laser/scan</topicName>
+	  <frameName>base</frameName>
+	</plugin>
       </sensor>
+
+
 
       <sensor name="wall_sensor" type="ray">
         <pose>0.090000 -0.120000 0.059000 0 0 -1.000000</pose>
