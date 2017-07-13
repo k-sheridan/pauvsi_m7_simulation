@@ -5,6 +5,7 @@
 #include <time.h>
 #include <math.h>
 #include <visualization_msgs/Marker.h>
+#include <sensor_msgs/LaserScan.h>
 
 //the looprate for the loop in main
 const int looprate = 20;
@@ -34,6 +35,7 @@ double count_5 = 0;
 double count_20 = 50;
 
 int seedVal;
+std::string modelName;
 
 geometry_msgs::PoseStamped poseMsg;
 
@@ -59,6 +61,19 @@ void callback_20(const ros::TimerEvent& event){
 	total_ang += ang_20;
 	ROS_INFO_STREAM("20: Angle turned: " << total_ang << " " << ang_20);
 	count_20 = 0;
+}
+
+void laser_callback(const sensor_msgs::LaserScanConstPtr& inp)
+{
+	for(int i=0; i<(*inp).ranges.size(); ++i)
+	{
+		if((*inp).ranges[i] < 0.025)
+		{
+			ROS_INFO_STREAM(modelName<<" ROOMBA COLLISION");
+			count_20 = 0;
+		}
+
+	}
 }
 
 //To get the coordinates of the copter
@@ -145,7 +160,7 @@ int main(int argc, char **argv)
 
  	ros::NodeHandle n;
 
- 	std::string modelName;
+
  	ros::param::param<int>("~seed_value", seedVal, 0);
  	ros::param::param<std::string>("~model_name", modelName, "roomba1");
  //	n.getParam("seed_value", seedVal);
@@ -166,6 +181,11 @@ int main(int argc, char **argv)
  	ros::Publisher block_pub = n.advertise<visualization_msgs::Marker>("visualization_block", 1);
 	//Subscribe to copter messages
  	ros::Subscriber sub = n.subscribe("ground_truth_to_tf/pose", 1, copterCallback);
+ 	//Subscriber to roomba laser scan
+ 	ros::Subscriber laserFSub = n.subscribe("laser/front/scan", 1, laser_callback);
+ 	ros::Subscriber laserRSub = n.subscribe("laser/right/scan", 1, laser_callback);
+ 	ros::Subscriber laserLSub = n.subscribe("laser/left/scan", 1, laser_callback);
+
 	//GetModelState Client. Used to gett roomba coordinates from Gazebo
  	ros::ServiceClient gms_c = 
  		n.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");

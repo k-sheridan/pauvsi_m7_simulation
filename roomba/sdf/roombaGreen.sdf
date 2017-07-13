@@ -51,9 +51,9 @@
 	</geometry>
 	<material>
 	 <lighting> true </lighting>
-	 <diffuse> 0.69019607843 0.0862745098 0.0156862745 1 </diffuse>
-	<ambient> 0.69019607843 0.0862745098 0.0156862745 1 </ambient>
-        <emissive> 0.69019607843 0.0862745098 0.0156862745 1 </emissive>
+	 <diffuse> 0.0862745098 0.33725490196 0.06274509803 1 </diffuse>
+	<ambient> 0.0862745098 0.33725490196 0.06274509803 1 </ambient>
+        <emissive> 0.0862745098 0.33725490196 0.06274509803 1 </emissive>
 	 <specular> 1 1 1 12.5 </specular>
 	</material>     
      </visual>

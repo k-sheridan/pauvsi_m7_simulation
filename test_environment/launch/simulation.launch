@@ -105,7 +105,7 @@
 	 </node>
  </group>
 
-<param name="robot_description6" textfile="$(find roomba)/sdf/roomba.sdf" />
+<param name="robot_description6" textfile="$(find roomba)/sdf/roombaGreen.sdf" />
     <node
       name="spawn_model6"
       pkg="gazebo_ros"
@@ -122,7 +122,7 @@
 	 </node>
  </group>
 
-<param name="robot_description7" textfile="$(find roomba)/sdf/roomba.sdf" />
+<param name="robot_description7" textfile="$(find roomba)/sdf/roombaGreen.sdf" />
     <node
       name="spawn_model7"
       pkg="gazebo_ros"
@@ -139,7 +139,7 @@
 	 </node>
  </group>
 
-<param name="robot_description8" textfile="$(find roomba)/sdf/roomba.sdf" />
+<param name="robot_description8" textfile="$(find roomba)/sdf/roombaGreen.sdf" />
     <node
       name="spawn_model8"
       pkg="gazebo_ros"
@@ -156,7 +156,7 @@
 	 </node>
  </group>
 
-<param name="robot_description9" textfile="$(find roomba)/sdf/roomba.sdf" />
+<param name="robot_description9" textfile="$(find roomba)/sdf/roombaGreen.sdf" />
     <node
       name="spawn_model9"
       pkg="gazebo_ros"
@@ -173,7 +173,7 @@
 	 </node>
  </group>
 
-<param name="robot_description10" textfile="$(find roomba)/sdf/roomba.sdf" />
+<param name="robot_description10" textfile="$(find roomba)/sdf/roombaGreen.sdf" />
     <node
       name="spawn_model10"
       pkg="gazebo_ros"
