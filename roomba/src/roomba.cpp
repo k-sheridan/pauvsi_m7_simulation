@@ -31,7 +31,9 @@ double total_ang = 0;
 
 double count_5 = 0;
 
-double count_20 = 0;
+double count_20 = 50;
+
+int seedVal;
 
 geometry_msgs::PoseStamped poseMsg;
 
@@ -42,18 +44,20 @@ ros::Timer timer_20;
 // until we hit the loop rate. (i.e. these will slowly increase in main, and
 // will become 0 after 5 and 20 seconds, respectively)
 void callback_5(const ros::TimerEvent& event){
-	std::srand(std::time(NULL));
+	//TODO: check if you're getting params
+
+	std::srand(seedVal*234917);
 	current_ang = (std::rand() % 41-20)/180.0f*M_PI;
 	//current_ang = rand() / RAND_MAX *(2* ang_5);
 	total_ang += current_ang;
-	ROS_INFO_STREAM("Angle turned: " << total_ang << " " << current_ang);
+	ROS_INFO_STREAM("seed:" << seedVal<< "5: Angle turned: " << total_ang << " " << current_ang);
 	count_5 = 0;
 }
 
 void callback_20(const ros::TimerEvent& event){
 	count_5 = looprate; // set it to 20, so we stop callback_5 when 20 sec pass
 	total_ang += ang_20;
-	ROS_INFO_STREAM("Angle turned: " << total_ang << " " << ang_20);
+	ROS_INFO_STREAM("20: Angle turned: " << total_ang << " " << ang_20);
 	count_20 = 0;
 }
 
@@ -135,12 +139,19 @@ bool checkBlock(double x, double y, double velocity_x, double velocity_y){
 
 int main(int argc, char **argv)
 {
-	//Seed for the random number generator
-	std::srand(std::time(NULL));
+
 
  	ros::init(argc, argv, "roomba");
 
  	ros::NodeHandle n;
+
+ 	std::string modelName;
+ 	n.param<std::string>("~model_name", modelName, "roomba1");
+ 	n.getParam("~seed_value", seedVal);
+ 	ROS_DEBUG_STREAM("SeedValue: "<< seedVal);
+ 	//Seed for the random number generator
+	std::srand(seedVal);
+
 
 	timer_5 = n.createTimer(ros::Duration(5.0), callback_5);
 	timer_20 = n.createTimer(ros::Duration(20.0), callback_20);
@@ -159,7 +170,7 @@ int main(int argc, char **argv)
  		n.serviceClient<gazebo_msgs::GetModelState>("/gazebo/get_model_state");
 
  	gazebo_msgs::GetModelState model;
- 	model.request.model_name = "create";
+ 	model.request.model_name = modelName;
 
  	ros::Rate loop_rate(looprate);
 	//twist object to p}ublish messages
@@ -209,6 +220,9 @@ int main(int argc, char **argv)
 
  	while (ros::ok())
  	{
+// 		if(n.searchParam("~model_name", modelName))
+// 			ROS_INFO_STREAM("PARAM");
+ 		ROS_INFO_STREAM("MnAME:"<<modelName);
 		pos.header.stamp = ros::Time::now();
 
 		//update the coordinates in the model
@@ -264,16 +278,20 @@ int main(int argc, char **argv)
 		/*Move the roomba as it normally should on the 5 and 20 second intervals*/
 		mov.angular.z = 0;
 		
+
+
 		// 2.456 is how long a 180 degree turn should take as per iarc docs
 		// based on 2.456s/180 degr, we can find how long it takes to turn x degr
 		// by doing: 2.456s/180 degr * degrees to turn = time to turn
 		if (count_5 < (fabs(current_ang)/M_PI*2.456*looprate)){ // 2.456 is how long to turn as per iarc docs
 			mov.angular.z = 1.279; // this speed is iarc specified
-			std::cout << current_ang << std::endl;
+//			ROS_INFO_STREAM("Moving for 5");
+			//std::cout << current_ang << std::endl;
 			count_5++;
 		}
 
 		if (count_20 < 2.456*looprate){
+//			ROS_INFO_STREAM("Moving for 20");
 			mov.linear.x = 0;
 			mov.angular.z = 1.279;// ang_20
 			count_20++;
@@ -378,10 +396,10 @@ int main(int argc, char **argv)
         block.color.b = 1.0f;
         block.color.a = 1.0;
 
-        std::cout << "Block position is: " << block.pose.position.x << "," << block.pose.position.y << "," << block.pose.position.z << std::endl;
-        std::cout << "Block scale is: " << block.scale.x << "," << block.scale.y << "," << block.scale.z << std::endl;
-
-        std::cout << "Total angle is " << total_ang << std::endl;
+//        std::cout << "Block position is: " << block.pose.position.x << "," << block.pose.position.y << "," << block.pose.position.z << std::endl;
+//        std::cout << "Block scale is: " << block.scale.x << "," << block.scale.y << "," << block.scale.z << std::endl;
+//
+//        std::cout << "Total angle is " << total_ang << std::endl;
 
 		if(mov.angular.z != 0)
 		{
