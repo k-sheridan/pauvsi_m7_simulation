@@ -183,8 +183,65 @@
 </node>
 
 
+<group ns = "Obssim1">
+   <node pkg="roomba" type="obstacleSim" name="obstacleSim" output="screen">
+    <param name="model_name" type="str" value="obstacle1" />
+	 </node>
+</group>
 
+<param name="robot_description11" textfile="$(find roomba)/sdf/obstacle.sdf" />
+    <node
+      name="spawn_model11"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-sdf -param robot_description11 -model obstacle1 -x 5 -y 0 -z 0 -Y -1.57079632679 -namespace Obssim1"
+      output="screen">
+</node>
 
+<group ns = "Obssim2">
+   <node pkg="roomba" type="obstacleSim" name="obstacleSim" output="screen">
+    <param name="model_name" type="str" value="obstacle2" />
+	 </node>
+</group>
+
+<param name="robot_description12" textfile="$(find roomba)/sdf/obstacle.sdf" />
+    <node
+      name="spawn_model12"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-sdf -param robot_description12 -model obstacle2 -x 0 -y 5 -z 0 -Y 0 -namespace Obssim2"
+      output="screen">
+</node>
+
+<group ns = "Obssim3">
+   <node pkg="roomba" type="obstacleSim" name="obstacleSim" output="screen">
+    <param name="model_name" type="str" value="obstacle3" />
+	 </node>
+</group>
+
+<param name="robot_description13" textfile="$(find roomba)/sdf/obstacle.sdf" />
+    <node
+      name="spawn_model13"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-sdf -param robot_description13 -model obstacle3 -x -5 -y 0 -z 0 -Y 1.57079632679 -namespace Obssim3"
+      output="screen">
+</node>
+
+<group ns = "Obssim4">
+   <node pkg="roomba" type="obstacleSim" name="obstacleSim" output="screen">
+    <param name="model_name" type="str" value="obstacle4" />
+	 </node>
+</group>
+
+<param name="robot_description14" textfile="$(find roomba)/sdf/obstacle.sdf" />
+    <node
+      name="spawn_model14"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-sdf -param robot_description14 -model obstacle4 -x 0 -y -5 -z 0 -Y 3.14159265359 -namespace Obssim4"
+      output="screen">
+</node>
 
  
 <!--
