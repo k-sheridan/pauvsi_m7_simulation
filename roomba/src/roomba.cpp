@@ -360,7 +360,16 @@ int main(int argc, char **argv)
 
 		pos.pose.position.x = x;
 		pos.pose.position.y = y;
+		pos.pose.position.z = z;
 
+		if(z < -0.2)
+		{
+			mov.linear.x = 0;
+			mov.angular.z = 0;
+			pubMov.publish(mov);
+			ROS_WARN_STREAM("Roomba "<<modelName<<" has gone OOB. Killing Roomba.");
+			std::exit(0);
+		}
 
 		pos.pose.orientation.x = model.response.pose.orientation.x;	
 		pos.pose.orientation.y = model.response.pose.orientation.y;

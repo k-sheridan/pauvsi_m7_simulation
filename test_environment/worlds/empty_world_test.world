@@ -418,6 +418,10 @@
    </include>
 
    <include>
+	<uri>model://IARC Gym Floor</uri>
+   </include>
+
+   <include>
 	<pose> 9.96 0 -0.1 0 0 0 </pose>
 	<uri>model://white_line</uri>
    </include>
@@ -426,6 +430,29 @@
 	<pose> -9.96 0 -0.1 0 0 0 </pose>
 	<uri>model://white_line</uri>
    </include>
+
+
+   <include>
+	<pose> -11 0 0 0 0 -1.5716 </pose>
+	<uri>model://IARC Gym Wall</uri>
+   </include>
+
+   <include>
+	<pose> 11 0 0 0 0 1.5716 </pose>
+	<uri>model://IARC Gym Wall</uri>
+   </include>
+
+   <include>
+	<pose> 0 -11 0 0 0 0 </pose>
+	<uri>model://IARC Gym Wall</uri>
+   </include>
+
+   <include>
+	<pose> 0 11 0 0 0 0 </pose>
+	<uri>model://IARC Gym Wall</uri>
+   </include>
+
+  
 <!--
     <model name="120m_landscape_smooth_tri">
       <link name="120m_landscape_smooth_tri_link">

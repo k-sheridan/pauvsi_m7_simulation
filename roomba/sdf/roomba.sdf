@@ -58,6 +58,21 @@
 	</material>     
      </visual>
 
+       <sensor name="top_contact" type="contact">
+        <contact>
+          <collision>top plate</collision>
+ 	</contact>
+	<visualize>true</visualize>
+	<update_rate>40</update_rate>
+	<plugin name="top_contact_controller" filename="libcontact.so">
+	  <alwaysOn>true</alwaysOn>
+	  <updateRate>30.0</updateRate>
+	  <topicName>contact</topicName>
+	  <frameName>base</frameName>
+	</plugin>
+      </sensor>
+
+
       <collision name="front_wheel_collision">
         <pose>0.130000 0 0.017000 0 1.570700 1.570700</pose>
         <geometry>
