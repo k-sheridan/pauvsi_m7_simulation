@@ -34,6 +34,9 @@ double count_5 = 0;
 
 double count_20 = 50;
 
+//used to check if the copter has touched the target
+bool check = 0;
+
 int seedVal;
 std::string modelName;
 
@@ -71,9 +74,24 @@ void laser_callback(const sensor_msgs::LaserScanConstPtr& inp)
 		{
 			ROS_INFO_STREAM(modelName<<" ROOMBA COLLISION");
 			count_20 = 0;
+			break;
 		}
 
 	}
+}
+
+void contact_callback(const sensor_msgs::LaserScanConstPtr& inp)
+{
+	for(int i=0; i<(*inp).ranges.size(); ++i)
+	{
+		if((*inp).ranges[i] < 0.08)
+		{
+			ROS_INFO_STREAM("QC TOUCHED "<<modelName);
+			check = true;
+			return;
+		}
+	}
+	check = false;
 }
 
 //To get the coordinates of the copter
@@ -185,6 +203,7 @@ int main(int argc, char **argv)
  	ros::Subscriber laserFSub = n.subscribe("laser/front/scan", 1, laser_callback);
  	ros::Subscriber laserRSub = n.subscribe("laser/right/scan", 1, laser_callback);
  	ros::Subscriber laserLSub = n.subscribe("laser/left/scan", 1, laser_callback);
+ 	ros::Subscriber laserTSub = n.subscribe("laser/top/scan", 1, contact_callback);
 
 	//GetModelState Client. Used to gett roomba coordinates from Gazebo
  	ros::ServiceClient gms_c = 
@@ -232,10 +251,9 @@ int main(int argc, char **argv)
  	double last_touch = 0;
 
 	//Determines if the roomba can turn (prevents turning >45 degrees on touch
- 	bool can_turn;
+ 	bool can_turn = true;
 
-	//used to check if the copter has touched the target
-	bool check = 0;
+
 
  	double rand_num = 0;
 
@@ -326,7 +344,7 @@ int main(int argc, char **argv)
 		copter_z = poseMsg.pose.position.z;
 
 		//Check if the roomba is touched and can turn
-		check = checkCopter(copter_x, copter_y, copter_z, x, y, z, colour);
+		//check = checkCopter(copter_x, copter_y, copter_z, x, y, z, colour);
 
 		if (check && can_turn == true){
 			ROS_INFO_STREAM("The copter has touched");

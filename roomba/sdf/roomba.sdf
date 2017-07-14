@@ -58,19 +58,32 @@
 	</material>     
      </visual>
 
-       <sensor name="top_contact" type="contact">
-        <contact>
-          <collision>top plate</collision>
- 	</contact>
+       <sensor name="top_ray" type="ray">
+	<pose>0 0 0.087 0 -1.570700 0 </pose>
 	<visualize>true</visualize>
 	<update_rate>40</update_rate>
-	<plugin name="top_contact_controller" filename="libcontact.so">
+	<ray>
+	  <scan>
+	    <horizontal>
+		<samples>10</samples>
+		<min_angle>-1.570700</min_angle>
+		<max_angle>1.570700</max_angle>
+	    </horizontal>
+	   </scan>
+	   <range>
+		<min>0.0</min>
+		<max>0.5</max>
+		<resolution>0.01</resolution>
+	   </range>
+	</ray>
+	<plugin name="top_ray_controller" filename="libgazebo_ros_laser.so">
 	  <alwaysOn>true</alwaysOn>
 	  <updateRate>30.0</updateRate>
-	  <topicName>contact</topicName>
+	  <topicName>laser/top/scan</topicName>
 	  <frameName>base</frameName>
 	</plugin>
       </sensor>
+
 
 
       <collision name="front_wheel_collision">
@@ -198,7 +211,7 @@
 
 	<sensor name="leftfront_cliff_sensor" type="ray">
         <pose>0.1270000 0.137000 0.027000 0 0 1.0</pose>
-	<visualize>true</visualize>
+	<visualize>false</visualize>
 	<update_rate>40</update_rate>
         <ray>
           <scan>
@@ -225,7 +238,7 @@
 
 	<sensor name="rightfront_cliff_sensor" type="ray">
         <pose>0.127000 -0.13700 0.027000 0 0 -1.0</pose>
-	<visualize>true</visualize>
+	<visualize>false</visualize>
 	<update_rate>40</update_rate>
         <ray>
           <scan>
