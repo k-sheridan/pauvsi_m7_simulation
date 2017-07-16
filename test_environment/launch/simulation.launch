@@ -2,6 +2,8 @@
 
 <launch>
    
+   <param name="use_sim_time" value="true" />
+   
   <arg name="gui" default="true"/>
   <arg name="roomba" default="true"/>
 
