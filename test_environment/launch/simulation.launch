@@ -26,7 +26,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description1 -model roomba1 -x 1 -y 0 -z 0 -Y 0 -namespace Rsim1"
-      output="screen">
+      >
 </node>
 
 
@@ -43,7 +43,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description2 -model roomba2 -x 0.80901671853 -y 0.58778563195 -z 0 -Y 0.628319 -namespace Rsim2"
-      output="screen">
+      >
 </node>
 
 
@@ -60,7 +60,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description3 -model roomba3 -x 0.30901419963 -y 0.95105742435 -z 0 -Y 1.25664 -namespace Rsim3"
-      output="screen">
+      >
 </node>
 
 
@@ -77,7 +77,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description4 -model roomba4 -x -0.30902118648 -y 0.95105515418 -z 0 -Y 1.88496 -namespace Rsim4"
-      output="screen">
+      >
 </node>
 
 
@@ -94,7 +94,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description5 -model roomba5 -x -0.809014571 -y 0.58778858776 -z 0 -Y 2.51327 -namespace Rsim5"
-      output="screen">
+      >
 </node>
 
 
@@ -111,7 +111,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description6 -model roomba6 -x -1 -y 0 -z 0 -Y 3.14159265359 -namespace Rsim6"
-      output="screen">
+      >
 </node>
 
 
@@ -128,7 +128,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description7 -model roomba7 -x -0.80901769049 -y -0.58778429416 -z 0 -Y 3.76991 -namespace Rsim7"
-      output="screen">
+      >
 </node>
 
 
@@ -145,7 +145,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description8 -model roomba8 -x -0.30901672334 -y -0.95105660435 -z 0 -Y 4.39823 -namespace Rsim8"
-      output="screen">
+      >
 </node>
 
 
@@ -162,7 +162,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description9 -model roomba9 -x 0.30901866277 -y -0.95105597419 -z 0 -Y 5.02655 -namespace Rsim9"
-      output="screen">
+      >
 </node>
 
 
@@ -179,7 +179,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description10 -model roomba10 -x 0.80901888911 -y -0.58778264439 -z 0 -Y 5.65487 -namespace Rsim10"
-      output="screen">
+      >
 </node>
 
 
@@ -195,7 +195,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description11 -model obstacle1 -x 5 -y 0 -z 0 -Y -1.57079632679 -namespace Obssim1"
-      output="screen">
+      >
 </node>
 
 <group ns = "Obssim2">
@@ -210,7 +210,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description12 -model obstacle2 -x 0 -y 5 -z 0 -Y 0 -namespace Obssim2"
-      output="screen">
+      >
 </node>
 
 <group ns = "Obssim3">
@@ -225,7 +225,7 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description13 -model obstacle3 -x -5 -y 0 -z 0 -Y 1.57079632679 -namespace Obssim3"
-      output="screen">
+      >
 </node>
 
 <group ns = "Obssim4">
@@ -240,8 +240,9 @@
       pkg="gazebo_ros"
       type="spawn_model"
       args="-sdf -param robot_description14 -model obstacle4 -x 0 -y -5 -z 0 -Y 3.14159265359 -namespace Obssim4"
-      output="screen">
+      >
 </node>
+
 
  
 <!--
@@ -250,6 +251,13 @@
     <arg name="model" value="$(find hector_quadrotor_description)/urdf/quadrotor_hokuyo_utm30lx.gazebo.xacro"/> 
   </include>
 -->
-
+<param name="quadrotor" textfile="$(find m7_master)/urdf/m7_robot.urdf" />
+		<node
+			name="spawn_model_rotor"
+			pkg="gazebo_ros"
+			type="spawn_model"
+			args="-urdf -param quadrotor -model quadrotor -x 9.5 -y -9.5 -z 3"
+		>
+</node>
    
 </launch>
